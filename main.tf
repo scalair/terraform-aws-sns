@@ -19,7 +19,8 @@ resource "aws_sns_topic" "topic" {
             "maxReceivesPerSecond": 1
             }
         }
-    }EOF
+    }
+EOF
 
     tags = var.tags
 }
