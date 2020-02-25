@@ -62,7 +62,6 @@ COMMAND
 }
 
 resource "aws_sns_sms_preferences" "sms_preferences" {
-    monthly_spend_limit = var.sns_sms_monthly_spend_limit
     default_sender_id   = var.sns_sms_sender_id
     default_sms_type    = var.sns_sms_type
 }

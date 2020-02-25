@@ -10,25 +10,19 @@ variable "sns_topics" {
 }
 
 variable "sns_sms_subscriptions" {
-    description = "SMS subscriptions associated with topics previously created. Type: map(sms -> topic ARN)"
+    description = "SMS subscriptions associated with topics previously created. Type: map(sms -> topic ARN)."
     type        = map
     default     = {}
 }
 
 variable "sns_email_subscriptions" {
-    description = "EMail subscriptions associated with topics previously created. Type: map(email -> topic ARN)"
+    description = "EMail subscriptions associated with topics previously created. Type: map(email -> topic ARN)."
     type        = map
     default     = {}
 }
 
-variable "sns_sms_monthly_spend_limit" {
-    description = "The maximum amount in USD that you are willing to spend each month to send SMS messages."
-    type        = string
-    default     = "1"
-}
-
 variable "sns_sms_sender_id" {
-    description = "A string, such as your business brand, that is displayed as the sender on the receiving device."
+    description = "A string, such as your business brand, that is displayed as the sender on the receiving device. Must be at most 11 characters."
     type        = string
     default     = ""
 }
