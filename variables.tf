@@ -1,17 +1,24 @@
+variable "sns_region" {
+    description = "The region of SNS service."
+    type        = string
+}
+
 variable "sns_topics" {
     description = "The list of SNS topics name to create."
     type        = list(string)
     default     = []
 }
 
-variable "sns_subscriptions" {
-    description = "The list of SNS subscriptions associated with topics previously created."
-    type        = list(object({
-        topic_name = string
-        protocol   = string // Terraform does not yet support email protocol
-        emdpoint   = string
-    }))
-    default     = []
+variable "sns_sms_subscriptions" {
+    description = "SMS subscriptions associated with topics previously created. Type: map(sms -> topic ARN)"
+    type        = map
+    default     = {}
+}
+
+variable "sns_email_subscriptions" {
+    description = "EMail subscriptions associated with topics previously created. Type: map(email -> topic ARN)"
+    type        = map
+    default     = {}
 }
 
 variable "sns_sms_monthly_spend_limit" {
@@ -29,7 +36,7 @@ variable "sns_sms_sender_id" {
 variable "sns_sms_type" {
     description = "The type of SMS message that you will send by default. Possible values are: Promotional, Transactional"
     type        = string
-    default     = Promotional
+    default     = "Promotional"
 }
 
 variable "tags" {
