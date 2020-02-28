@@ -9,25 +9,23 @@ variable "sns_topics" {
     default     = []
 }
 
-variable "sns_sms_subscriptions" {
-    description = "SMS subscriptions associated with topics previously created. Type: map(sms -> topic ARN)."
-    type        = map
-    default     = {}
+variable "sns_subscriptions" {
+    description = "Subscriptions associated with topics previously created."
+    type        = list(object({
+      endpoints  = string, // comma separated values
+      topic      = string,
+      type       = string
+    }))
+    default = []
 }
 
-variable "sns_email_subscriptions" {
-    description = "EMail subscriptions associated with topics previously created. Type: map(email -> topic ARN)."
-    type        = map
-    default     = {}
-}
-
-variable "sns_sms_sender_id" {
+variable "sns_sms_preferences_sender_id" {
     description = "A string, such as your business brand, that is displayed as the sender on the receiving device. Must be at most 11 characters."
     type        = string
     default     = ""
 }
 
-variable "sns_sms_type" {
+variable "sns_sms_preferences_type" {
     description = "The type of SMS message that you will send by default. Possible values are: Promotional, Transactional"
     type        = string
     default     = "Promotional"
