@@ -31,9 +31,17 @@ EOF
 
 locals {
   sms_subs = flatten([
-    for nums, topic in var.sns_sms_subscriptions: [
-      for num in split(",", nums): {
-        num   = num
+    for dests, topic in var.sns_sms_subscriptions: [
+      for dest in split(",", dests): {
+        dest  = dest
+        topic = topic
+      }
+    ]
+  ])
+  email_subs = flatten([
+    for dests, topic in var.sns_email_subscriptions: [
+      for dest in split(",", dests): {
+        dest  = dest
         topic = topic
       }
     ]
@@ -42,7 +50,7 @@ locals {
 
 resource "aws_sns_topic_subscription" "topic_sms_subscription" {
     for_each = {
-        for sub in local.sms_subs : sub.num => sub.topic
+        for sub in local.sms_subs : sub.dest => sub.topic
     }
 
     topic_arn = aws_sns_topic.topic[each.value].arn
@@ -51,7 +59,9 @@ resource "aws_sns_topic_subscription" "topic_sms_subscription" {
 }
 
 resource "null_resource" "topic_email_subscription" {
-    for_each  = var.sns_email_subscriptions
+    for_each = {
+        for sub in local.email_subs : sub.dest => sub.topic
+    }
 
     provisioner "local-exec" {
         command = <<COMMAND
