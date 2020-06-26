@@ -1,6 +1,6 @@
-provider "aws" {
-  region = var.sns_region
-}
+#provider "aws" {
+#  region = var.sns_region
+#}
 
 resource "aws_sns_topic" "topic" {
     for_each = toset(var.sns_topics)
