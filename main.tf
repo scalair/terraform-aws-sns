@@ -64,7 +64,7 @@ resource "null_resource" "topic_email_subscription" {
 
     provisioner "local-exec" {
         command = <<COMMAND
-AWS_DEFAULT_REGION=${aws_region.current.name}
+AWS_DEFAULT_REGION=${data.aws_region.current.name}
 aws sns subscribe --topic-arn ${aws_sns_topic.topic[each.value.topic].arn} --protocol email --notification-endpoint ${each.value.endpoint}
 COMMAND
     }
