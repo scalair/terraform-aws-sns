@@ -7,8 +7,6 @@ Here an example Terragrunt configuration:
 ```hcl
 inputs = {
 
-  sns_region = "eu-west-1"
-
   sns_topics = [
     "topic1",
     "topic2"
