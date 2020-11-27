@@ -1,6 +1,4 @@
-#provider "aws" {
-#  region = var.sns_region
-#}
+data "aws_region" "current" {}
 
 resource "aws_sns_topic" "topic" {
     for_each = toset(var.sns_topics)
@@ -66,7 +64,7 @@ resource "null_resource" "topic_email_subscription" {
 
     provisioner "local-exec" {
         command = <<COMMAND
-AWS_DEFAULT_REGION=${var.sns_region}
+AWS_DEFAULT_REGION=${aws_region.current.name}
 aws sns subscribe --topic-arn ${aws_sns_topic.topic[each.value.topic].arn} --protocol email --notification-endpoint ${each.value.endpoint}
 COMMAND
     }
