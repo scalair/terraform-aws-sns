@@ -1,8 +1,3 @@
-variable "sns_region" {
-    description = "The region of SNS service."
-    type        = string
-}
-
 variable "sns_topics" {
     description = "The list of SNS topics name to create."
     type        = list(string)
